@@ -8,7 +8,6 @@ import RelationView from "./relation-view/RelationView"
 
 class Profile extends React.Component
 {
-    // constructor({data:{character}})
     constructor(props)
     {
         super(props);
@@ -25,6 +24,7 @@ class Profile extends React.Component
         if (loading) return <div>Loading</div>;
         if (error) return <h1>ERROR</h1>;
 
+
         character = character === undefined? {}:character;
 
         return(<div>
@@ -37,6 +37,7 @@ class Profile extends React.Component
                 <ul>
                     <li>name: {character.firstname} {character.lastname}</li>
                     <li>nickname: {character.nickname}</li>
+                    <li>gender: {character.gender}</li>
                 </ul>
             </Sidebar>
 
@@ -54,6 +55,7 @@ export default graphql(gql`
             firstname
             lastname
             nickname
+            gender
         }
     }
 `,{
