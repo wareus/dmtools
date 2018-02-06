@@ -39,6 +39,10 @@ class Profile extends React.Component
                     <li>nickname: {character.nickname}</li>
                     <li>gender: {character.gender}</li>
                 </ul>
+                <ul>
+                    {character.events.map(event=><li>{event.date}: {event.type}</li>)}
+                </ul>
+
             </Sidebar>
 
             <Button icon="fa-arrow-right" onClick={ () => this.setState({sidebarVisible:true}) }/>
@@ -56,13 +60,17 @@ export default graphql(gql`
             lastname
             nickname
             gender
+            events{
+                type
+                date
+            }
         }
     }
-`,{
-    options:({location:{pathname}})=>{
+`, {
+    options: ({location: {pathname}}) => {
 
         let pathParam = pathname.split("/").slice(-1).pop();
 
-        return { variables: { id: pathParam } }
+        return {variables: {id: pathParam}}
     },
 })(Profile);

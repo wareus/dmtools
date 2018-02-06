@@ -3,6 +3,9 @@ import { Route } from 'react-router-dom'
 
 import {DataGrid} from 'primereact/components/datagrid/DataGrid';
 import {Panel} from "primereact/components/panel/Panel";
+
+import AddCharacterPanel from "./AddCharacterPanel"
+
 import {SERVER_URL} from "../index";
 import {graphql} from "react-apollo/index";
 import gql from "graphql-tag";
@@ -10,6 +13,7 @@ import gql from "graphql-tag";
 
 class CharacterList extends React.Component
 {
+
     characterTemplate(character) {
         if(!character) {
             return;
@@ -28,19 +32,24 @@ class CharacterList extends React.Component
             )}/>);
     }
 
+
+
     render()
     {
         let { loading, characters, error } = this.props.data;
         if (loading) return <div>Loading</div>;
         if (error) return <h1>ERROR</h1>;
 
-        return <DataGrid value={characters} itemTemplate={this.characterTemplate.bind(this)} header="Characters"></DataGrid>;
+        return <div>
+            <AddCharacterPanel refetch={this.props.data.refetch}/>
+            <DataGrid value={characters} itemTemplate={this.characterTemplate.bind(this)} header="Characters"></DataGrid>
+        </div>;
     }
 
 }
 
 export default graphql(gql`
-    query CHaractersQuery{
+    query CharactersQuery{
         characters {
             id
             firstname
